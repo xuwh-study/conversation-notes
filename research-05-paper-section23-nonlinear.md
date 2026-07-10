@@ -1,0 +1,45 @@
+## 2.3 几何非线性项的引入
+
+### 2.3.1 非线性效应的物理动机
+
+前两节建立的线性理论假设各硬层的面内位移梯度和横向挠度均足够小，使得Green-Lagrange应变中的二次项可以忽略。然而，当复合板的各层厚度较薄（如柔性电子器件中的微米级薄膜）或横向载荷较大时，挠度可能达到与层厚相当甚至更大的量级。此时，忽略几何非线性将导致显著的刚度低估：面内拉应力通过von Kármán效应提供额外的横向刚度（膜力强化），这一机制在板的弯曲刚度逐渐耗尽、薄膜承载机制开始主导的过渡阶段尤为关键。此外，当层间滑移在局部区域诱发压应力时，线性理论无法捕捉可能出现的屈曲或褶皱失稳模式——这些现象必须在考虑几何非线性的框架下才能合理描述。
+
+从数学上讲，对于多层复合结构，线性理论的适用性由两个无量纲参数控制：无量纲最大挠度 $\bar{w} = w/h$（$h$ 为总厚度）和特征面内应变 $\varepsilon_0$。当 $\bar{w} \gtrsim 0.2$ 或 $\varepsilon_0 \gtrsim 10^{-3}$ 时，非线性项的影响不可忽略。在板-膜过渡问题中，这两个条件往往同时被触发，因而几何非线性的引入是理论体系不可或缺的一环。
+
+### 2.3.2 von Kármán非线性应变-位移关系
+
+将von Kármán板理论推广到多层体系，第 $i$ 个硬层的总薄膜应变包含线性部分和非线性耦合项。考虑局部弯曲自由度后的总横向挠度为 $w_{\text{total}} = w + w_i^b$，其中 $w$ 为宏观挠度（所有层共享），$w_i^b$ 为第 $i$ 层的局部弯曲挠度。非线性Green-Lagrange应变保留von Kármán近似下的主要二次项，第 $i$ 层中面应变写为：
+
+$$\varepsilon_i = \frac{\partial u_i}{\partial x} + \frac{1}{2}\left(\frac{\partial w_{\text{total}}}{\partial x}\right)^2 = \frac{\partial u_i}{\partial x} + \frac{1}{2}\left(\frac{\partial w}{\partial x} + \frac{\partial w_i^b}{\partial x}\right)^2 \tag{2.37}$$
+
+展开二次项可得三个贡献：
+
+$$\varepsilon_i = \frac{\partial u_i}{\partial x} + \frac{1}{2}\left(\frac{\partial w}{\partial x}\right)^2 + \frac{\partial w}{\partial x}\frac{\partial w_i^b}{\partial x} + \frac{1}{2}\left(\frac{\partial w_i^b}{\partial x}\right)^2 \tag{2.38}$$
+
+其中第二项为经典von Kármán非线性项（宏观挠度耦合），第三项为宏观-局部弯曲交叉非线性项，第四项为局部弯曲自身的非线性贡献。当层间为完全刚性连接（$w_i^b = 0$）时，式(2.37)退化为经典单层von Kármán板理论的结果。
+
+### 2.3.3 非线性势能泛函与Euler-Lagrange方程
+
+计入几何非线性后，系统的总势能泛函在式(2.28)的基础上增加非线性贡献：
+
+$$\Pi^{\text{NL}} = \Pi^{\text{L}} + \sum_{i=1}^{N} \int_{0}^{L} \left[ \frac{E_i A_i}{2} \frac{\partial u_i}{\partial x} \left(\frac{\partial w_{\text{total}}}{\partial x}\right)^2 + \frac{E_i A_i}{8} \left(\frac{\partial w_{\text{total}}}{\partial x}\right)^4 \right] dx \tag{2.39}$$
+
+其中 $\Pi^{\text{L}}$ 为2.1-2.2节建立的线性势能泛函。对 $\Pi^{\text{NL}}$ 取关于 $u_i$、$w$ 和 $w_i^b$ 的变分，得到一组耦合的非线性常微分方程。
+
+对广义位移 $u_i$ 的变分给出轴向平衡方程（含非线性驱动项）：
+
+$$E_i A_i \frac{\partial^2 u_i}{\partial x^2} + E_i A_i \frac{\partial w_{\text{total}}}{\partial x} \frac{\partial^2 w_{\text{total}}}{\partial x^2} + \tau_i = 0 \tag{2.40}$$
+
+其中 $\tau_i$ 为第 $i$ 层上下界面处的层间剪应力合力。
+
+对 $w$ 和 $w_i^b$ 的变分，经过分部积分以及利用式(2.40)消去 $u_i$ 的二阶导数后，可得关于横向挠度的非线性耦合控制方程组。其核心特征是膜力 $N_i = E_i A_i \varepsilon_i$ 通过 $\partial^2 w_{\text{total}}/\partial x^2$ 产生等效横向载荷项 $N_i \partial^2 w_{\text{total}}/\partial x^2$，构成了膜力强化的数学本质。
+
+### 2.3.4 非线性效应的参数域与板-膜过渡
+
+非线性项的重要性可用无量纲参数 $\lambda_{\text{NL}} = (w_{\max}/h)(L/h)$ 衡量，其中 $L$ 为板的特征长度。当 $\lambda_{\text{NL}} \ll 1$ 时，线性理论足够精确；当 $\lambda_{\text{NL}} \sim 1$ 或更大时，非线性效应主导响应行为。
+
+在板-膜过渡的背景下，几何非线性在两个方向上重塑板的响应：(1) 延缓弯曲刚度耗尽的进程——即便弯曲刚度随层间滑移增长而降低，膜力强化效应仍能维持结构的承载能力；(2) 使Plate-ness Index $\mathcal{P}$ 的过渡曲线更加平滑，因为非线性膜力贡献在完全粘结态到完全滑移态之间提供了第三类刚度来源。当压应力出现时，非线性框架还允许在后屈曲分析中追踪褶皱模态的演化路径，这在线性理论中完全无法处理。
+
+### 2.3.5 求解策略概述
+
+非线性耦合方程组的求解需要采用专门方法。对于弱非线性情形（$\lambda_{\text{NL}} < 1$），可采用正则摄动法，将解展开为 $\lambda_{\text{NL}}$ 的渐近级数，递推求解各阶线性化方程。对于强非线性情形，有限元离散结合Newton-Raphson迭代是最常用的数值策略；当系统存在分叉（如屈曲或褶皱失稳）时，需辅以弧长法（Riks方法）追踪平衡路径的分支与转向点。第4章将详细讨论基于这些策略的数值实现和参数分析结果。
