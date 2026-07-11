@@ -1,0 +1,11 @@
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Temp files
+*.tmp
+~$*.docx
+~$*.xlsx
+
+# System
+.DS_Store
